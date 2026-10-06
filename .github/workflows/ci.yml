@@ -1,4 +1,4 @@
-name: Node CI
+name: Go CI
 
 on:
   push:
@@ -11,41 +11,44 @@ permissions:
 
 jobs:
   test:
-    name: Test (Node ${{ matrix.node-version }})
+    name: Test (Go ${{ matrix.go-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20', '22']
+        go-version: ['1.23', '1.24']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
+          go-version: ${{ matrix.go-version }}
+          cache: true
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Download dependencies
+        run: go mod download
 
-      - name: Lint
-        run: npm run lint 2>/dev/null || npx eslint . --ext .js,.ts
-
-      - name: Type check
-        run: npm run typecheck 2>/dev/null || npx tsc --noEmit
-
-      - name: Test with coverage
+      - name: Verify go.mod/go.sum
         run: |
-          npm test -- --coverage --coverageProvider=v8 2>/dev/null || \
-          npx jest --coverage --coverageProvider=v8 2>/dev/null || \
-          npx vitest run --coverage 2>/dev/null || \
-          npx mocha --require @babel/register 'test/**/*.test.js' 2>/dev/null || true
+          git diff --exit-code go.mod
+          git diff --exit-code go.sum
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Static analysis (golangci-lint)
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+
+      - name: Test with race detector
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
-          files: ./coverage/lcov.info
+          files: ./coverage.out
           fail_ci_if_error: false
 
   build:
@@ -56,26 +59,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          node-version: '22'
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
+          go-version: '1.24'
+          cache: true
 
       - name: Build
-        run: npm run build 2>/dev/null || true
+        run: |
+          CGO_ENABLED=0 go build -ldflags="-s -w" -o bin/app ./cmd/...
 
-      - name: Upload build artifacts
+      - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: build
-          path: |
-            dist/
-            build/
-            out/
+          name: app-${{ runner.os }}-${{ runner.arch }}
+          path: bin/app
           retention-days: 7
 
   docker:
