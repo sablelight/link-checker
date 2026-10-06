@@ -1,0 +1,24 @@
+name = "link-checker"
+main = "src/index.ts"
+compatibility_date = "2024-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "link-checker"
+database_id = "replace-with-d1-database-id"
+
+# KV Namespace for caching
+[[kv_namespaces]]
+binding = "CACHE"
+id = "replace-with-kv-namespace-id"
+preview_id = "replace-with-preview-kv-id"
+
+# Scheduled triggers - every 5 minutes
+[triggers]
+crons = ["*/5 * * * *"]
+
+# Variables (set via wrangler secret put)
+[vars]
+# ALERT_WEBHOOK = "https://discord.com/api/webhooks/..." # Set via: wrangler secret put ALERT_WEBHOOK
