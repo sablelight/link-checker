@@ -1,0 +1,35 @@
+---
+name: Bug Report
+about: Report a reproducible bug
+title: "[Bug] "
+labels: ["bug"]
+assignees: ""
+---
+
+## Description
+
+{{CLEAR_CONCISE_DESCRIPTION}}
+
+## Steps to Reproduce
+
+1. {{STEP_1}}
+2. {{STEP_2}}
+3. {{STEP_3}}
+
+## Expected Behavior
+
+{{WHAT_SHOULD_HAPPEN}}
+
+## Actual Behavior
+
+{{WHAT_HAPPENS_INSTEAD}}
+
+## Environment
+
+- OS: {{OS}}
+- Go/Python/Node version: {{VERSION}}
+- Project version/commit: {{VERSION_OR_COMMIT}}
+
+## Additional Context
+
+{{LOGS_SCREENSHOTS_ETC}}

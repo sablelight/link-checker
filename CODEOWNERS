@@ -1,0 +1,11 @@
+# CODEOWNERS
+# These users will be automatically requested for review when PRs touch these files.
+# For a solo project, this is just you — but it signals "I own this codebase."
+
+* @sablelight
+
+# Specific areas (optional — uncomment and add if you have co-maintainers)
+# /internal/config/ @sablelight
+# /internal/ratelimit/ @sablelight
+# /.github/workflows/ @sablelight
+# /docs/ @sablelight

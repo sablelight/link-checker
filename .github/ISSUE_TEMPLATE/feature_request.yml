@@ -1,0 +1,23 @@
+---
+name: Feature Request
+about: Suggest a new feature or enhancement
+title: "[Feature] "
+labels: ["enhancement"]
+assignees: ""
+---
+
+## Problem
+
+{{WHAT_PROBLEM_DOES_THIS_SOLVE}}
+
+## Proposed Solution
+
+{{HOW_SHOULD_IT_WORK}}
+
+## Alternatives Considered
+
+{{OTHER_APPROACHES_YOU_THOUGHT_ABOUT}}
+
+## Additional Context
+
+{{MOCKUPS_LINKS_RELATED_ISSUES}}

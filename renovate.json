@@ -1,0 +1,112 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":prHourlyLimit2"
+  ],
+  "labels": ["dependencies", "renovate"],
+  "schedule": ["every weekend"],
+  "timezone": "UTC",
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "branchPrefix": "renovate/",
+  "commitMessagePrefix": "deps",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageAction": "upgrade",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dependency Dashboard",
+  "dependencyDashboardApproval": false,
+  "packageRules": [
+    {
+      "matchManagers": ["gomod"],
+      "groupName": "Go dependencies (minor/patch)",
+      "groupSlug": "go-minor-patch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "matchManagers": ["pip"],
+      "groupName": "Python dependencies (minor/patch)",
+      "groupSlug": "pip-minor-patch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["npm"],
+      "groupName": "Node dependencies (minor/patch)",
+      "groupSlug": "npm-minor-patch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["nuget"],
+      "groupName": "NuGet dependencies (minor/patch)",
+      "groupSlug": "nuget-minor-patch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["dockerfile", "docker-compose"],
+      "groupName": "Docker base images",
+      "groupSlug": "docker-base",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": false
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "groupSlug": "github-actions",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "matchDatasources": ["github-releases"],
+      "groupName": "Tooling releases",
+      "groupSlug": "tooling-releases",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["golang.org/x/*"],
+      "groupName": "Go extended stdlib",
+      "groupSlug": "go-extended-stdlib",
+      "automerge": true
+    },
+    {
+      "matchPackageNames": ["github.com/stretchr/testify", "github.com/golang/mock"],
+      "groupName": "Go testing libs",
+      "groupSlug": "go-testing",
+      "automerge": true
+    },
+    {
+      "matchPackageNames": ["github.com/redis/go-redis", "github.com/go-redis/redis"],
+      "groupName": "Redis client",
+      "groupSlug": "redis-client",
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["prometheus/client_golang"],
+      "groupName": "Prometheus client",
+      "groupSlug": "prom-client",
+      "automerge": true
+    }
+  ],
+  "ignoreDeps": [
+    "node:18",
+    "node:20"
+  ],
+  "separateMinorPatch": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["every weekend"]
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security", "vulnerability"]
+  }
+}

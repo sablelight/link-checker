@@ -1,9 +1,17 @@
+# Node.js
 # Dependencies
 node_modules/
+.pnp
+.pnp.js
 
 # Build output
 dist/
 build/
+out/
+.next/
+.nuxt/
+.esbuild/
+*.tsbuildinfo
 
 # Environment
 .env
@@ -14,6 +22,11 @@ build/
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # IDE
 .vscode/
@@ -26,13 +39,28 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Wrangler
-.wrangler/
-.dev.vars
-
-# Test
+# Test / Coverage
 coverage/
 .nyc_output/
+.vitest/
+.playwright/
 
 # TypeScript
 *.tsbuildinfo
+
+# Package manager
+.yarn/
+.pnpm-store/
+
+# Turbo
+.turbo/
+
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# Generated
+generated/
+*.generated.ts
