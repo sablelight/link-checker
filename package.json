@@ -6,7 +6,6 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "test": "vitest run",
-    "lint": "eslint src/",
     "db:local": "wrangler d1 execute link-checker --local --file=schema.sql",
     "db:remote": "wrangler d1 execute link-checker --remote --file=schema.sql"
   },

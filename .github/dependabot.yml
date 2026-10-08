@@ -1,106 +1,21 @@
-# Dependabot configuration
-# Place at .github/dependabot.yml
-
+# Dependabot — tailored to the ecosystems actually present in this repo.
 version: 2
 updates:
-  # Go modules
-  - package-ecosystem: "gomod"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "go"
-    commit-message:
-      prefix: "deps(go):"
-    groups:
-      go-minor:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-
-  # GitHub Actions
+  # GitHub Actions (all repos have workflows)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    labels:
-      - "dependencies"
-      - "github-actions"
+      interval: "monthly"
+    labels: ["dependencies", "github-actions"]
     commit-message:
       prefix: "ci:"
 
-  # Docker
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    labels:
-      - "dependencies"
-      - "docker"
-    commit-message:
-      prefix: "deps(docker):"
-
-  # Python (if applicable)
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "python"
-    commit-message:
-      prefix: "deps(pip):"
-    groups:
-      pip-minor:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-
-  # Node.js (if applicable)
+# node
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "node"
+      interval: "monthly"
+    labels: ["dependencies", "node"]
     commit-message:
       prefix: "deps(npm):"
-    groups:
-      npm-minor:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
 
-  # NuGet (if applicable)
-  - package-ecosystem: "nuget"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    labels:
-      - "dependencies"
-      - "dotnet"
-    commit-message:
-      prefix: "deps(nuget):"
